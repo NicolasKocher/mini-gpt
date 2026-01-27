@@ -18,9 +18,7 @@ public sealed class McpHttpClient
         _http.DefaultRequestHeaders.Accept.ParseAdd("text/event-stream"); // Spec verlangt Accept für beides
     }
 
-    /// <summary>
     /// Extrahiert JSON aus einer SSE-Antwort (text/event-stream) oder gibt den String direkt zurück wenn es JSON ist.
-    /// </summary>
     private static string ExtractJsonFromSse(string response)
     {
         // Wenn es bereits gültiges JSON ist (beginnt mit {), direkt zurückgeben
@@ -65,7 +63,7 @@ public sealed class McpHttpClient
         if (!string.IsNullOrWhiteSpace(negotiated))
             _protocolVersion = negotiated;
 
-        // notifications/initialized :contentReference[oaicite:7]{index=7}
+        // notifications/initialized
         var notif = new { jsonrpc = "2.0", method = "notifications/initialized" };
         using var notifResp = await PostAsync(notif, ct);
         if ((int)notifResp.StatusCode != 202)
@@ -126,7 +124,7 @@ public sealed class McpHttpClient
             Content = JsonContent.Create(body)
         };
 
-        // Session Management + Protocol Header :contentReference[oaicite:8]{index=8}
+        // Session Management + Protocol Header 
         if (!string.IsNullOrWhiteSpace(_sessionId))
             req.Headers.TryAddWithoutValidation("Mcp-Session-Id", _sessionId);
 
