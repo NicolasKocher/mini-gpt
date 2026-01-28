@@ -6,9 +6,9 @@ public sealed class McpHttpClient
 {
     private readonly HttpClient _http;
     private readonly string _endpoint;
-    private string? _sessionId;
+    private string? _sessionId; // Sitzungs-ID für die MCP-Sitzungsverwaltung
     private string _protocolVersion = "2025-06-18";
-    private int _id = 1;
+    private int _id = 1; // JSON-RPC-ID zum Nachverfolgen von Anfragen
 
     public McpHttpClient(HttpClient http, string endpoint)
     {
